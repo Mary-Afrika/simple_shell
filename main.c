@@ -75,7 +75,7 @@ void handle_command(char *command)
 			{
 				if (execve(path, args, environ) == -1)
 					perror("An Error has occurred\n");
-				else
+				else if (handle_custom_commands(args[0]) == -1)
 					printf("%s: command not found\n", args[0]);
 				exit(0);
 			}
