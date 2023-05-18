@@ -16,12 +16,12 @@ char **splitstring(char *str, char *delim)
 	{
 		return (NULL);
 	}
-	token = strtok((char *)str, delim);
+	token = _strtok((char *)str, delim);
 	while (token != NULL && tokenCount < 1024)
 	{
 		tokens[tokenCount] = strdup(token);
 		tokenCount++;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	tokens[tokenCount] = NULL;
 	return (tokens);

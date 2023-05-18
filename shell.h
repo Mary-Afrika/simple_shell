@@ -14,8 +14,9 @@ char **get_directories(void);
 void handle_command(char *command);
 char *get_path(char *path);
 char **splitstring(char *str, char *delim);
-void print_environment();
+void print_environment(void);
 char *_getenv(const char *name);
 int handle_custom_commands(char *command);
+char *_strtok(char *str, const char *delim);
 
 #endif

@@ -66,12 +66,12 @@ char **get_directories(void)
 		printf("Malloc fialed");
 		return (NULL);
 	}
-	dir = strtok(strdup(path), ":");
+	dir = _strtok(strdup(path), ":");
 	while (dir != NULL && i < 1024)
 	{
 		dirs[i] = dir;
 		i++;
-		dir = strtok(NULL, ":");
+		dir = _strtok(NULL, ":");
 	}
 	dirs[i] = NULL;
 
