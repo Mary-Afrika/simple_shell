@@ -44,8 +44,8 @@ int main(int ac, char **av)
  * which is split up and executed
  * is a valid command
  * @command: char array of the command
- * @Return: void
-*/
+ * Return: void
+ */
 void handle_command(char *command)
 {
 	char *path = NULL;
@@ -53,30 +53,39 @@ void handle_command(char *command)
 	char **args = NULL;
 	char *delim = " \n";
 
+	if (strlen(command) == 1)
+	{
+		return;
+	}
+
 	args = splitstring(command, delim);
 
-	pid = fork();
-	if (pid == -1)
+	if (args)
 	{
-		return;
-	}
-	else if (pid == 0)
-	{
-		if (args)
-		{
-			path = get_path(args[0]);
+		path = get_path(args[0]);
 
-			if (path && execve(path, args, NULL) == -1)
-				perror("An Error has occurred\n");
+		if (path)
+		{
+			pid = fork();
+			if (pid == -1)
+			{
+				return;
+			}
+			else if (pid == 0)
+			{
+				if (execve(path, args, environ) == -1)
+					perror("An Error has occurred\n");
+				else
+					printf("%s: command not found\n", args[0]);
+				exit(0);
+			}
 			else
-				printf("%s: command not found\n", args[0]);
-			exit(0);
+			{
+				wait(NULL);
+				return;
+			}
 		}
-	}
-	else
-	{
-		wait(NULL);
-		return;
+		else
+			printf("%s: command not found\n", args[0]);
 	}
 }
-

@@ -9,6 +9,7 @@
 #include <string.h>
 #include <sys/wait.h>
 
+extern char **environ;
 char **get_directories(void);
 void handle_command(char *command);
 char *get_path(char *path);
