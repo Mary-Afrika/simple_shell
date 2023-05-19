@@ -29,10 +29,6 @@ int main(int ac, char **av)
 		{
 			return (-1);
 		}
-		if (strcmp(command, "exit\n") == 0)
-		{
-			return (-1);
-		}
 		handle_command(command);
 	}
 	free(command);
@@ -52,6 +48,7 @@ void handle_command(char *command)
 	pid_t pid;
 	char **args = NULL;
 	char *delim = " \n";
+	int custom_res = -1;
 
 	if (strlen(command) == 1)
 	{
@@ -62,30 +59,39 @@ void handle_command(char *command)
 
 	if (args)
 	{
-		path = get_path(args[0]);
+		custom_res = handle_custom_commands(args[0], args);
 
-		if (path)
+		if (custom_res == -1)
 		{
-			pid = fork();
-			if (pid == -1)
+			path = get_path(args[0]);
+
+			if (path)
 			{
-				return;
-			}
-			else if (pid == 0)
-			{
-				if (execve(path, args, environ) == -1)
-					perror("An Error has occurred\n");
-				else if (handle_custom_commands(args[0]) == -1)
-					printf("%s: command not found\n", args[0]);
-				exit(0);
+				pid = fork();
+				if (pid == -1)
+				{
+					return;
+				}
+				else if (pid == 0)
+				{
+						if (execve(path, args, environ) == -1)
+						{
+							perror("An Error has occurred\n");
+							exit(0);
+						}
+						else
+						{
+							printf("%s: command not found\n", args[0]);
+						}
+				}
+				else
+				{
+					wait(NULL);
+					return;
+				}
 			}
 			else
-			{
-				wait(NULL);
-				return;
-			}
+				printf("%s: command not found\n", args[0]);
 		}
-		else
-			printf("%s: command not found\n", args[0]);
 	}
 }
