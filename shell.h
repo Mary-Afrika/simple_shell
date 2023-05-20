@@ -24,5 +24,6 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void my_exit(char** args);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
+void change_directory(char **args);
 
 #endif

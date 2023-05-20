@@ -34,8 +34,62 @@ int handle_custom_commands(char *command, char **args)
 		}
 		return (1);
 	}
-	else
+
+	else if (strcmp(command, "cd") == 0)
+	{
+		change_directory(args);
+		return (1);
+	}
+else
 	{
 		return (-1);
 	}
 }
+
+/**
+ * change_directory - changes directory suitably
+ * @args: string array of input promt
+ * Return: void
+*/
+void change_directory(char **args)
+{
+	char cwd[256];
+	char *home_dir;
+	char *old_dir;
+
+	home_dir = getenv("HOME");
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		printf("getcwd error");
+		return;
+	}
+
+	if (args[1] == NULL)
+	{
+		chdir(home_dir);
+	}
+	else
+	{
+		if (strcmp(args[1], "-") == 0)
+		{
+			old_dir = getenv("OLDPWD");
+			if (old_dir != NULL)
+			{
+				chdir(old_dir);
+				printf("%s\n", old_dir);
+			}
+			else
+			{
+				printf("cd: OLDPWD not set\n");
+			}
+		}
+		else
+		{
+			if (chdir(args[1]) == -1)
+			{
+				printf("cd: %s: No such file or directory\n", args[1]);
+			}
+		}
+	}
+}
+
