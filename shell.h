@@ -18,8 +18,6 @@ void print_environment(void);
 char *_getenv(const char *name);
 int handle_custom_commands(char *command, char **args);
 char *_strtok(char *str, const char *delim);
-ssize_t my_getline(char **lineptr, size_t *n, FILE *stream);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void my_exit(char** args);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
@@ -34,4 +32,5 @@ char *_strdup(char *str);
 char *_strcpy(char *dest, char *src);
 char *_strchr(const char *s, char c);
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
+void free_char_array(char **array);
 #endif
