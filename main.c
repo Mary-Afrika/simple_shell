@@ -27,6 +27,7 @@ int main(int ac, char **av)
 		promt_length = getline(&command, &buff_size, stdin);
 		if (promt_length == getline_err)
 		{
+			free(command);
 			return (-1);
 		}
 		handle_command(command);
@@ -57,7 +58,7 @@ void handle_command(char *command)
 
 	args = splitstring(command, delim);
 
-	if (args)
+	if (args && args[0] != NULL)
 	{
 		custom_res = handle_custom_commands(args[0], args);
 
@@ -70,23 +71,24 @@ void handle_command(char *command)
 				pid = fork();
 				if (pid == -1)
 				{
+					free_char_array(args);
 					return;
 				}
 				else if (pid == 0)
 				{
-						if (execve(path, args, environ) == -1)
-						{
-							perror("An Error has occurred\n");
-							exit(0);
-						}
-						else
-						{
-							printf("%s: command not found\n", args[0]);
-						}
+					if (execve(path, args, environ) == -1)
+					{
+						perror("An Error has occurred\n");
+						free(path);
+						free_char_array(args);
+						exit(0);
+					}
 				}
 				else
 				{
 					wait(NULL);
+					free(path);
+					free_char_array(args);
 					return;
 				}
 			}
@@ -94,4 +96,5 @@ void handle_command(char *command)
 				printf("%s: command not found\n", args[0]);
 		}
 	}
+	free_char_array(args);
 }
