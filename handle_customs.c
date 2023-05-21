@@ -9,12 +9,12 @@
 int handle_custom_commands(char *command, char **args)
 {
 	(void)args;
-	if (strcmp(command, "exit") == 0)
+	if (_strcmp(command, "exit") == 0)
 	{
 		my_exit(args);
 		return (1);
 	}
-	else if (strcmp(command, "setenv") == 0)
+	else if (_strcmp(command, "setenv") == 0)
 	{
 		if (args[1] && args [2])
 		{
@@ -24,7 +24,7 @@ int handle_custom_commands(char *command, char **args)
 		}
 		return (1);
 	}
-	else if (strcmp(command, "unsetenv") == 0)
+	else if (_strcmp(command, "unsetenv") == 0)
 	{
 		if (args[1])
 		{
@@ -35,7 +35,7 @@ int handle_custom_commands(char *command, char **args)
 		return (1);
 	}
 
-	else if (strcmp(command, "cd") == 0)
+	else if (_strcmp(command, "cd") == 0)
 	{
 		change_directory(args);
 		return (1);
@@ -70,7 +70,7 @@ void change_directory(char **args)
 	}
 	else
 	{
-		if (strcmp(args[1], "-") == 0)
+		if (_strcmp(args[1], "-") == 0)
 		{
 			old_dir = getenv("OLDPWD");
 			if (old_dir != NULL)

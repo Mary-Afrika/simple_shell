@@ -50,7 +50,7 @@ void handle_command(char *command)
 	char *delim = " \n";
 	int custom_res = -1;
 
-	if (strlen(command) == 1)
+	if (_strlen(command) == 1)
 	{
 		return;
 	}

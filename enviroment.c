@@ -12,10 +12,10 @@ char *_getenv(const char *name)
 
 	if (name == NULL)
 		return (NULL);
-	name_length = strlen(name);
+	name_length = _strlen((char *)name);
 	for (env = environ; *env != NULL; ++env)
 	{
-		if (strncmp(*env, name, name_length) == 0 && (*env)[name_length] == '=')
+		if (_strncmp(*env, name, name_length) == 0 && (*env)[name_length] == '=')
 		{
 			return (&((*env)[name_length + 1]));
 		}
@@ -51,69 +51,35 @@ int _setenv(char *name, char *value, int overwrite)
         return (0);
     }
 
-    new_env_length = strlen(name) + strlen(value) + 2;
+    new_env_length = _strlen(name) + _strlen(value) + 2;
     new_env = malloc(new_env_length * sizeof(char *));
 
     if(!new_env)
     {
         return (-1);
     }
-    strcat(new_env, name);
-    strcat(new_env, "=");
-    strcat(new_env, value);
-    strcat(new_env, "\0");
+    _strcat(new_env, name);
+    _strcat(new_env, "=");
+    _strcat(new_env, value);
+    _strcat(new_env, "\0");
     
     res = putenv(new_env);
 
     return (res);
 }
 
-/*
-int _setenv2(const char *name, const char *value, int overwrite)
-{
-    char *env_var;
-
-    if (name == NULL || value == NULL)
-    {
-        return (-1);
-    }
-
-    env_var = getenv(name);
-    if(env_var != NULL && overwrite == 0)
-    {
-        return (0);
-    }
-
-    size_t new_env_length = strlen(name) + strlen(value) + 2;
-    char *new_env = malloc(new_env_length * sizeof(char *));
-
-    if(!new_env)
-    {
-        return (-1);
-    }
-    strcat(new_env, name);
-    strcat(new_env, "=");
-    strcat(new_env, value);
-    strcat(new_env, "\0");
-    
-    int res = putenv(new_env);
-
-    return (res);
-}
-*/
-
 int _unsetenv(char *name) {
 	size_t nameLength;
 	int i;
 	int j;
 
-    if (name == NULL || *name == '\0' || strchr(name, '=') != NULL) {
+    if (name == NULL || *name == '\0' || _strchr(name, '=') != NULL) {
         return -1;
     }
-    nameLength = strlen(name);
+    nameLength = _strlen(name);
 
     for (i = 0; environ[i] != NULL; i++) {
-        if (strncmp(environ[i], name, nameLength) == 0 && environ[i][nameLength] == '=') {
+        if (_strncmp(environ[i], name, nameLength) == 0 && environ[i][nameLength] == '=') {
             for (j = i; environ[j] != NULL; j++) {
                 environ[j] = environ[j + 1];
             }

@@ -15,17 +15,17 @@ char *get_path(char *path)
 
 	for (i = 0; dirs[i]; i++)
 	{
-		full_path = malloc(strlen(path) + strlen(dirs[i]) + 2);
+		full_path = malloc(_strlen(path) + _strlen(dirs[i]) + 2);
 
 		if (!full_path)
 		{
 			printf("Memory Allocation Failed");
 			return (NULL);
 		}
-		strcat(full_path, dirs[i]);
-		strcat(full_path, "/");
-		strcat(full_path, path);
-		strcat(full_path, "\0");
+		_strcat(full_path, dirs[i]);
+		_strcat(full_path, "/");
+		_strcat(full_path, path);
+		_strcat(full_path, "\0");
 
 		if (stat(full_path, &st) == 0)
 		{
@@ -66,7 +66,7 @@ char **get_directories(void)
 		printf("Malloc fialed");
 		return (NULL);
 	}
-	dir = _strtok(strdup(path), ":");
+	dir = _strtok(_strdup(path), ":");
 	while (dir != NULL && i < 1024)
 	{
 		dirs[i] = dir;

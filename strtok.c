@@ -20,7 +20,7 @@ char *_strtok(char *str, const char *delim)
 		return (NULL);
 	token = head;
 
-	while (*head != '\0' && strchr(delim, *head) != NULL)
+	while (*head != '\0' && _strchr(delim, *head) != NULL)
 		head++;
 
 	if (*head == '\0')
@@ -28,7 +28,7 @@ char *_strtok(char *str, const char *delim)
 
 	token = head;
 
-	while (*head != '\0' && strchr(delim, *head) == NULL)
+	while (*head != '\0' && _strchr(delim, *head) == NULL)
 		head++;
 
 	if (*head != '\0')
