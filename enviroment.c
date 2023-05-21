@@ -65,7 +65,6 @@ int _setenv(char *name, char *value, int overwrite)
     
     res = putenv(new_env);
 
-    free(new_env);
     return (res);
 }
 

@@ -25,6 +25,5 @@ void my_exit(char** args);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 void change_directory(char **args);
-void free_char_array(char **array);
 
 #endif
