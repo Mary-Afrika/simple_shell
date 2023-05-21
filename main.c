@@ -10,9 +10,11 @@ int main(int ac, char **av)
 {
 	char *command;
 	const char *promt;
+	char *command_split;
 	size_t promt_length;
 	size_t buff_size;
 	size_t getline_err;
+	const char *command_separator = ";";
 
 	(void)ac;
 	(void)av;
@@ -29,7 +31,12 @@ int main(int ac, char **av)
 		{
 			return (-1);
 		}
-		handle_command(command);
+		command_split = strtok(command, command_separator);
+		while (command_split != NULL)
+		{
+			handle_command(command_split);
+			command_split = strtok(NULL, command_separator);
+		}
 	}
 	free(command);
 	return (0);
@@ -74,15 +81,15 @@ void handle_command(char *command)
 				}
 				else if (pid == 0)
 				{
-						if (execve(path, args, environ) == -1)
-						{
-							perror("An Error has occurred\n");
-							exit(0);
-						}
-						else
-						{
-							printf("%s: command not found\n", args[0]);
-						}
+					if (execve(path, args, environ) == -1)
+					{
+						perror("An Error has occurred\n");
+						exit(0);
+					}
+					else
+					{
+						printf("%s: command not found\n", args[0]);
+					}
 				}
 				else
 				{

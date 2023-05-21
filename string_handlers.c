@@ -189,21 +189,18 @@ char *_strcpy(char *dest, char *src)
 
 /**
  * _strchr - locates a character in a string
- * @c: occurrence of the character
- * @s: in the string
+ * @s: pointer to the string
+ * @c: character to locate
  * Return: a pointer to the first occurrence of the character
  */
 char *_strchr(const char *s, char c)
 {
-	while (*s)
+	while (*s != '\0')
 	{
-		if (*s != c)
-			s++;
-		else
-			return ((char *)s);
+		if (*s == c)
+			return (char *)s;
+		s++;
 	}
-	if (c == '\0')
-		return ((char *)s);
 
 	return (NULL);
 }

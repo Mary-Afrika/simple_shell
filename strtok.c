@@ -18,6 +18,7 @@ char *_strtok(char *str, const char *delim)
 
 	if (head == NULL || *head == '\0')
 		return (NULL);
+
 	token = head;
 
 	while (*head != '\0' && _strchr(delim, *head) != NULL)
@@ -33,7 +34,8 @@ char *_strtok(char *str, const char *delim)
 
 	if (*head != '\0')
 	{
-		*head++ = '\0';
+		*head = '\0';
+		head++;
 	}
 
 	return (token);
