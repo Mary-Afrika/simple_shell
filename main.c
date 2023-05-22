@@ -34,7 +34,7 @@ int main(int ac, char **av)
 		command_split = strtok(command, command_separator);
 		while (command_split != NULL)
 		{
-			handle_command(command_split);
+			handle_and_or(command_split);
 			command_split = strtok(NULL, command_separator);
 		}
 	}
@@ -47,19 +47,20 @@ int main(int ac, char **av)
  * which is split up and executed
  * is a valid command
  * @command: char array of the command
- * Return: void
+ * Return: 1 if successful, else -1
  */
-void handle_command(char *command)
+int handle_command(char *command)
 {
 	char *path = NULL;
 	pid_t pid;
 	char **args = NULL;
 	char *delim = " \n";
 	int custom_res = -1;
+	int status;
 
 	if (_strlen(command) == 1)
 	{
-		return;
+		return (-1);
 	}
 
 	args = splitstring(command, delim);
@@ -77,7 +78,7 @@ void handle_command(char *command)
 				pid = fork();
 				if (pid == -1)
 				{
-					return;
+					return (-1);
 				}
 				else if (pid == 0)
 				{
@@ -85,20 +86,31 @@ void handle_command(char *command)
 					{
 						perror("An Error has occurred\n");
 						exit(0);
+						return (-1);
 					}
 					else
 					{
 						printf("%s: command not found\n", args[0]);
+						return (-1);
 					}
 				}
 				else
 				{
-					wait(NULL);
-					return;
+					waitpid(pid, &status, 0); 
+
+					if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+					{
+						return (1); 
+					}
+					else
+					{
+						return (-1); 
+					}
 				}
 			}
 			else
 				printf("%s: command not found\n", args[0]);
 		}
 	}
+	return (-1);
 }

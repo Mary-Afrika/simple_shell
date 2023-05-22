@@ -12,7 +12,7 @@
 
 extern char **environ;
 char **get_directories(void);
-void handle_command(char *command);
+int handle_command(char *command);
 char *get_path(char *path);
 char **splitstring(char *str, char *delim);
 void print_environment(void);
@@ -35,5 +35,7 @@ char *_strchr(const char *s, char c);
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
 void free_char_array(char **array);
 void handle_and_or(char *command);
+void print(char *str);
+int _putchar(char c);
 
 #endif

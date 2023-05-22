@@ -20,7 +20,7 @@ int handle_custom_commands(char *command, char **args)
 		{
 			_setenv(args[1], args[2], 1);
 		} else {
-			fprintf(stderr, "Setenv failed. Invalid arguments.\n");
+			printf("Setenv failed. Invalid arguments.\n");
 		}
 		return (1);
 	}
@@ -30,7 +30,7 @@ int handle_custom_commands(char *command, char **args)
 		{
 			_unsetenv(args[1]);
 		} else {
-			fprintf(stderr, "Unsetenv failed. Invalid arguments.\n");
+			printf("Unsetenv failed. Invalid arguments.\n");
 		}
 		return (1);
 	}
