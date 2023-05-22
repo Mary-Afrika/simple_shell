@@ -1,42 +1,42 @@
 #include "shell.h"
 
 /**
- * _strtok - custom strtok function
- * @str: char pointer of the str
- * @delim: delimeters for splitting
- * Return: token after splitting
+* _strtok - custom strtok function
+* @str: char pointer of the str
+* @delim: delimeters for splitting
+* Return: token after splitting
 */
 char *_strtok(char *str, const char *delim)
 {
-	static char *head;
-	char *token;
+static char *head;
+char *token;
 
-	if (str != NULL)
-	{
-		head = str;
-	}
+if (str != NULL)
+{
+head = str;
+}
 
-	if (head == NULL || *head == '\0')
-		return (NULL);
+if (head == NULL || *head == '\0')
+return (NULL);
 
-	token = head;
+token = head;
 
-	while (*head != '\0' && _strchr(delim, *head) != NULL)
-		head++;
+while (*head != '\0' && _strchr(delim, *head) != NULL)
+head++;
 
-	if (*head == '\0')
-		return (NULL);
+if (*head == '\0')
+return (NULL);
 
-	token = head;
+token = head;
 
-	while (*head != '\0' && _strchr(delim, *head) == NULL)
-		head++;
+while (*head != '\0' && _strchr(delim, *head) == NULL)
+head++;
 
-	if (*head != '\0')
-	{
-		*head = '\0';
-		head++;
-	}
+if (*head != '\0')
+{
+*head = '\0';
+head++;
+}
 
-	return (token);
+return (token);
 }
