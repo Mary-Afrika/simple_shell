@@ -19,7 +19,7 @@ void print_environment(void);
 char *_getenv(const char *name);
 int handle_custom_commands(char *command, char **args);
 char *_strtok(char *str, const char *delim);
-void my_exit(char** args);
+void my_exit(char **args);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 void change_directory(char **args);
