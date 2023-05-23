@@ -31,7 +31,7 @@ _strcat(full_path, "\0");
 
 if (stat(full_path, &st) == 0)
 {
-free_char_array(dirs);
+/*free_char_array(dirs); here is menace*/
 return (full_path);
 }
 else

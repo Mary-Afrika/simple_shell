@@ -8,14 +8,14 @@
 */
 char **splitstring(char *str, char *delim)
 {
-char **tokens;
-char *token;
+char **tokens = NULL;
+char *token = NULL;
 int token_idx = 0;
-char *tokens_copy;
+char *tokens_copy = NULL;
 int tokens_size = 0;
-char *tokenf;
+char *tokenf = NULL;
 
-tokenf = _strdup(str);
+tokenf = strdup(str);
 tokens_copy = strtok(tokenf, delim);
 while (tokens_copy != NULL)
 {
@@ -23,27 +23,26 @@ while (tokens_copy != NULL)
 	tokens_copy = strtok(NULL, delim);
 }
 tokens_size++;
+free(tokenf);
+
 tokens = malloc(tokens_size * sizeof(char *));
 if (tokens == NULL)
 {
-	free(tokenf);
 	return (NULL);
 }
-token = strtok((char *)str, delim);
+token = strtok(str, delim);
 while (token != NULL)
 {
-	tokens[token_idx] = _strdup(token);
+	tokens[token_idx] = strdup(token);
 	if (tokens[token_idx] == NULL)
 	{
 		free_char_array(tokens);
-		free(tokenf);
 		return (NULL);
 	}
 	token_idx++;
 	token = strtok(NULL, delim);
 }
 tokens[token_idx] = NULL;
-free(tokenf);
 return (tokens);
 }
 

@@ -12,12 +12,12 @@ char *command_partial_and = NULL;
 char *command_partial_or = NULL;
 int exec_result;
 int previous_exec;
-char *command_or_copy;
-char *command_and_copy;
+char *command_or_copy = NULL;
+char *command_and_copy = NULL;
 
 if (strstr(command, command_and))
 {
-	command_and_copy = _strdup(command);
+	command_and_copy = strdup(command);
 	command_partial_and = strtok(command_and_copy, command_and);
 	previous_exec = 1;
 	while (command_partial_and != NULL)
@@ -33,7 +33,7 @@ if (strstr(command, command_and))
 }
 else if (strstr(command, command_or))
 {
-	command_or_copy = _strdup(command);
+	command_or_copy = strdup(command);
 	command_partial_or = strtok(command_or_copy, command_or);
 	previous_exec = -1;
 

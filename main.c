@@ -8,9 +8,9 @@
  */
 int main(int ac, char **av)
 {
-	char *command;
-	const char *promt;
-	char *command_split;
+	char *command = NULL;
+	const char *promt = NULL;
+	char *command_split = NULL;
 	size_t promt_length;
 	size_t buff_size;
 	size_t getline_err;
@@ -29,14 +29,17 @@ int main(int ac, char **av)
 		promt_length = getline(&command, &buff_size, stdin);
 		if (promt_length == getline_err)
 		{
+			free(command);
 			return (-1);
 		}
-		command_split = strtok(command, command_separator);
+		command_split = _strtok(command, command_separator);
 		while (command_split != NULL)
 		{
 			handle_and_or(command_split);
 			command_split = strtok(NULL, command_separator);
 		}
+		free(command);
+		command = NULL;
 	}
 	free(command);
 	return (0);
@@ -103,13 +106,11 @@ int handle_command(char *command)
 
 					if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 					{
-						free_char_array(args);
 						free(path);
 						return (1); 
 					}
 					else
 					{
-						free_char_array(args);
 						free(path);
 						return (-1); 
 					}
