@@ -15,22 +15,22 @@ int previous_exec;
 
 if (strstr(command, command_and))
 {
-command_partial_and = strtok(_strdup(command), command_and);
-previous_exec = 1;
-while (command_partial_and != NULL
-{
-if (previous_exec == 1)
-{
-exec_result = handle_command(command_partial_and);
-previous_exec = exec_result;
-}
-command_partial_and = strtok(NULL, command_and);
-}
+	command_partial_and = strtok(_strdup(command), command_and);
+	previous_exec = 1;
+	while (command_partial_and != NULL)
+	{
+		if (previous_exec == 1)
+		{
+			exec_result = handle_command(command_partial_and);
+			previous_exec = exec_result;
+		}
+		command_partial_and = strtok(NULL, command_and);
+	}
 }
 else if (strstr(command, command_or))
 {
-command_partial_or = strtok(_strdup(command), command_or);
-previous_exec = -1;
+	command_partial_or = strtok(_strdup(command), command_or);
+	previous_exec = -1;
 
 while (command_partial_or != NULL)
 {
