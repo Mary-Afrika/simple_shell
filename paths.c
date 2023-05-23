@@ -42,7 +42,7 @@ free(full_path);
 if (stat(path, &st) == 0)
 {
 free_char_array(dirs);
-return _strdup(path);
+return (_strdup(path));
 }
 free_char_array(dirs);
 return (NULL);
@@ -75,9 +75,9 @@ return (NULL);
 path_copy = _strdup(path);
 if (!path_copy)
 {
-    perror("Memory Allocation Failed");
-    free_char_array(dirs);
-    return NULL;
+perror("Memory Allocation Failed");
+free_char_array(dirs);
+return NULL;
 }
 dir = strtok(path_copy, ":");
 while (dir != NULL && i < 1024)
