@@ -78,6 +78,8 @@ int handle_command(char *command)
 				pid = fork();
 				if (pid == -1)
 				{
+					free_char_array(args);
+					free(path);
 					return (-1);
 				}
 				else if (pid == 0)
@@ -91,6 +93,7 @@ int handle_command(char *command)
 					else
 					{
 						printf("%s: command not found\n", args[0]);
+						free(path);
 						return (-1);
 					}
 				}
@@ -100,10 +103,14 @@ int handle_command(char *command)
 
 					if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 					{
+						free_char_array(args);
+						free(path);
 						return (1); 
 					}
 					else
 					{
+						free_char_array(args);
+						free(path);
 						return (-1); 
 					}
 				}
@@ -112,5 +119,6 @@ int handle_command(char *command)
 				printf("%s: command not found\n", args[0]);
 		}
 	}
+	free_char_array(args);
 	return (-1);
 }
