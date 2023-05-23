@@ -2,19 +2,21 @@
 
 /**
 * free_char_array - frees memory allocated for a string array
-* @array: the string array to free
+* @arr: the string array to free
 * Return: void
 */
-void free_char_array(char **array)
+void free_char_array(char **arr)
 {
-int i;
+	int i;
 
-if (array == NULL)
-return;
-
-for (i = 0; array[i] != NULL; i++)
-{
-free(array[i]);
-}
-free(array);
+	if (arr)
+	{
+		i = 0;
+		while (arr[i] != NULL)
+		{
+			free(arr[i]);
+			i++;
+		}
+		free(arr);
+	}
 }

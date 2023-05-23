@@ -9,10 +9,11 @@
 char *get_path(char *path)
 {
 char *full_path = NULL;
-char **dirs = get_directories();
+char **dirs;
 struct stat st;
 int i;
 
+dirs = get_directories();
 for (i = 0; dirs[i]; i++)
 {
 full_path = malloc(_strlen(path) + _strlen(dirs[i]) + 2);
@@ -20,6 +21,7 @@ full_path = malloc(_strlen(path) + _strlen(dirs[i]) + 2);
 if (!full_path)
 {
 perror("Memory Allocation Failed");
+free_char_array(dirs);
 return (NULL);
 }
 _strcat(full_path, dirs[i]);
@@ -29,6 +31,7 @@ _strcat(full_path, "\0");
 
 if (stat(full_path, &st) == 0)
 {
+/*free_char_array(dirs); here is menace*/
 return (full_path);
 }
 else
@@ -38,8 +41,10 @@ free(full_path);
 }
 if (stat(path, &st) == 0)
 {
-return (path);
+free_char_array(dirs);
+return _strdup(path);
 }
+free_char_array(dirs);
 return (NULL);
 }
 
@@ -54,6 +59,7 @@ char *path = getenv("PATH");
 char **dirs;
 int i = 0;
 char *dir;
+char *path_copy;
 
 if (path == NULL)
 {
@@ -66,14 +72,20 @@ if (!dirs)
 perror("Malloc fialed");
 return (NULL);
 }
-dir = _strtok(_strdup(path), ":");
+path_copy = _strdup(path);
+if (!path_copy)
+{
+    perror("Memory Allocation Failed");
+    free_char_array(dirs);
+    return NULL;
+}
+dir = strtok(path_copy, ":");
 while (dir != NULL && i < 1024)
 {
-dirs[i] = dir;
+dirs[i] = _strdup(dir);
 i++;
-dir = _strtok(NULL, ":");
+dir = strtok(NULL, ":");
 }
 dirs[i] = NULL;
-
 return (dirs);
 }

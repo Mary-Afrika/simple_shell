@@ -29,7 +29,7 @@ return (1);
 }
 else if (_strcmp(command, "unsetenv") == 0)
 {
-if args[1]
+if (args[1])
 {
 _unsetenv(args[1]);
 }
@@ -81,7 +81,7 @@ old_dir = getenv("OLDPWD");
 if (old_dir != NULL)
 {
 chdir(old_dir);
-perror("%s\n", old_dir);
+printf("%s\n", old_dir);
 }
 else
 {
@@ -92,7 +92,7 @@ else
 {
 if (chdir(args[1]) == -1)
 {
-perror("cd: %s: No such file or directory\n", args[1]);
+printf("cd: %s: No such file or directory\n", args[1]);
 }
 }
 }

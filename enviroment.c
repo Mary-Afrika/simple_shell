@@ -33,7 +33,7 @@ char **env;
 
 for (env = environ; *env != NULL; ++env)
 {
-write("%s\n", *env);
+printf("%s\n", *env);
 }
 }
 
