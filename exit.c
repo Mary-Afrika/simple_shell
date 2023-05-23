@@ -7,7 +7,6 @@
 
 void my_exit(char **args)
 {
-char **args = NULL;
 int status = 0;
 long int str_result;
 static int error_num = 1;

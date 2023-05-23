@@ -10,7 +10,7 @@ int main(int ac, char **av)
 {
 char *command = NULL;
 char *command_split = NULL;
-const char *promt = NULL;
+char *prompt = "$ ";
 size_t promt_length;
 size_t buff_size;
 size_t getline_err;
@@ -20,14 +20,13 @@ const char *command_separator = ";";
 (void)ac;
 (void)av;
 command = NULL;
-promt = "#cisfun$ ";
 buff_size = 1024;
 getline_err = -1;
 
 
 while (1)
 {
-perror((const char *)promt);
+printf("%s", prompt);
 promt_length = getline(&command, &buff_size, stdin);
 if (promt_length == getline_err)
 {
