@@ -9,8 +9,8 @@
 int main(int ac, char **av)
 {
 char *command = NULL;
-const char *promt = NULL;
 char *command_split = NULL;
+const char *promt = NULL;
 size_t promt_length;
 size_t buff_size;
 size_t getline_err;
@@ -27,7 +27,7 @@ getline_err = -1;
 
 while (1)
 {
-write"%s", promt);
+perror((const char *)promt);
 promt_length = getline(&command, &buff_size, stdin);
 if (promt_length == getline_err)
 {
@@ -89,7 +89,7 @@ return (-1);
 }
 else
 {
-perror("%s: command not found\n", args[0]);
+perror("Memory allocation failed");
 free(path);
 return (-1);
 }
@@ -110,7 +110,7 @@ return (-1);
 }
 }
 else
-perror("%s: command not found\n", args[0]);
+perror("Command not found");
 }
 }
 free_char_array(args);
