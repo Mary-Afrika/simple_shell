@@ -12,8 +12,8 @@ int handle_custom_commands(char *command, char **args)
 (void)args;
 if (_strcmp(command, "exit") == 0)
 {
+free(command);
 my_exit(args);
-return (1);
 }
 else if (_strcmp(command, "setenv") == 0)
 {
@@ -25,7 +25,6 @@ else
 {
 perror("Setenv failed. Invalid arguments.\n");
 }
-return (1);
 }
 else if (_strcmp(command, "unsetenv") == 0)
 {
@@ -37,18 +36,18 @@ else
 {
 perror("Unsetenv failed. Invalid arguments.\n");
 }
-return (1);
 }
-
 else if (_strcmp(command, "cd") == 0)
 {
 change_directory(args);
-return (1);
 }
 else
 {
 return (-1);
 }
+printf("home\n");
+free(command);
+return (1);
 }
 
 /**

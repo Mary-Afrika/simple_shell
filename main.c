@@ -36,7 +36,6 @@ int main(int ac, char **av)
 			handle_command(command_split);
 			command_split = strtok(NULL, command_separator);
 		}
-		free(command);
 	}
 	free(command);
 	return (0);
@@ -61,7 +60,7 @@ int handle_command(char *command)
 	args = splitstring(command, delim);
 	if (args)
 	{
-		custom_res = handle_custom_commands(args[0], args);
+		custom_res = handle_custom_commands(command, args);
 		if (custom_res == -1)
 		{
 			path = get_path(args[0]);
@@ -73,7 +72,7 @@ int handle_command(char *command)
 				perror("Command not found");
 		}
 	}
-	free_char_array(args);
+	free(args);
 	return (-1);
 }
 /**

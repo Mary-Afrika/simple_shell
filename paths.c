@@ -31,6 +31,7 @@ _strcat(full_path, "\0");
 
 if (stat(full_path, &st) == 0)
 {
+free(dirs);
 return (full_path);
 }
 else
@@ -70,19 +71,19 @@ if (!dirs)
 	perror("Malloc fialed");
 	return (NULL);
 }
-path_copy = _strdup(path);
+path_copy = strdup(path);
 if (!path_copy)
 {
 perror("Memory Allocation Failed");
 free_char_array(dirs);
 return (NULL);
 perror("Memory Allocation Failed");
-	return (NULL);
+return (NULL);
 }
 dir = strtok(path_copy, ":");
 while (dir != NULL && i < 1024)
 {
-dirs[i] = _strdup(dir);
+dirs[i] = dir;
 i++;
 dir = strtok(NULL, ":");
 }
