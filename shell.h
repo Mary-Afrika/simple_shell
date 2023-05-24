@@ -37,5 +37,6 @@ void free_char_array(char **array);
 void handle_and_or(char *command);
 void print(char *str);
 int _putchar(char c);
+int execute(char **args, char *path);
 
 #endif

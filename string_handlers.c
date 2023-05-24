@@ -25,7 +25,7 @@ while (tokens_copy != NULL)
 tokens_size++;
 free(tokenf);
 
-tokens = malloc(tokens_size * sizeof(char *));
+tokens = malloc((tokens_size + 1) * sizeof(char *));
 if (tokens == NULL)
 {
 	return (NULL);
