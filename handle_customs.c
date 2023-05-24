@@ -9,11 +9,10 @@
 */
 int handle_custom_commands(char *command, char **args)
 {
-(void)args;
+    int i;
 if (_strcmp(command, "exit") == 0)
 {
-free(command);
-my_exit(args);
+my_exit(command, args);
 }
 else if (_strcmp(command, "setenv") == 0)
 {
@@ -45,7 +44,6 @@ else
 {
 return (-1);
 }
-printf("home\n");
 free(command);
 return (1);
 }

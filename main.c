@@ -9,12 +9,12 @@
 int main(int ac, char **av)
 {
 	char *command = NULL;
-	char *command_split = NULL;
+	/*char *command_split = NULL;*/
 	char *prompt = "$ ";
 	size_t promt_length;
 	size_t buff_size;
 	size_t getline_err;
-	const char *command_separator = ";";
+	/*const char *command_separator = ";";*/
 
 	(void)ac;
 	(void)av;
@@ -22,19 +22,29 @@ int main(int ac, char **av)
 	buff_size = 1024;
 	getline_err = -1;
 
-	while (1)
+	if (isatty(STDIN_FILENO)) /* is terminal ?*/
 	{
-		printf("%s", prompt);
-		promt_length = getline(&command, &buff_size, stdin);
-		if (promt_length == getline_err)
+		while (1)
 		{
-			return (-1);
+
+			printf("%s", prompt);
+			promt_length = getline(&command, &buff_size, stdin);
+			if (promt_length == getline_err)
+			{
+				return (-1);
+			}
+			handle_command(command);
 		}
-		command_split = strtok(command, command_separator);
-		while (command_split != NULL)
+	}
+	else
+	{
+		while (getline(&command, &buff_size, stdin) != -1)
 		{
-			handle_command(command_split);
-			command_split = strtok(NULL, command_separator);
+			if (buff_size > 0 && command[buff_size - 1] == '\n')
+			{
+				command[buff_size - 1] = '\0';
+			}
+			handle_command(command);
 		}
 	}
 	free(command);
@@ -52,6 +62,7 @@ int handle_command(char *command)
 	char **args = NULL;
 	char *delim = " \n";
 	int custom_res = -1;
+	int i;
 
 	if (_strlen(command) == 1)
 	{
@@ -60,6 +71,10 @@ int handle_command(char *command)
 	args = splitstring(command, delim);
 	if (args)
 	{
+		for (i = 0; args[i]; i++)
+		{
+			printf("%s\n", args[i]);
+		}
 		custom_res = handle_custom_commands(command, args);
 		if (custom_res == -1)
 		{
@@ -69,7 +84,9 @@ int handle_command(char *command)
 				execute(args, path);
 			}
 			else
+			{
 				perror("Command not found");
+			}
 		}
 	}
 	free(args);
@@ -80,7 +97,7 @@ int handle_command(char *command)
  * @args: arrya
  * @path: path
  * Return: int
-*/
+ */
 int execute(char **args, char *path)
 {
 	pid_t pid;

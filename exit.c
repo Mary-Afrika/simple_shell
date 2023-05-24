@@ -5,7 +5,7 @@
 * @args: command arguments
 */
 
-void my_exit(char **args)
+void my_exit(char *command, char **args)
 {
 int status = 0;
 long int str_result;
@@ -22,5 +22,6 @@ return;
 status = str_result;
 }
 free(args);
+free(command);
 exit(status);
 }
