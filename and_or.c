@@ -17,7 +17,7 @@ char *command_and_copy = NULL;
 
 if (strstr(command, command_and))
 {
-command_and_copy = strdup(command);
+command_and_copy = _strdup(command);
 command_partial_and = strtok(command_and_copy, command_and);
 previous_exec = 1;
 while (command_partial_and != NULL)
@@ -33,7 +33,7 @@ free(command_and_copy);
 }
 else if (strstr(command, command_or))
 {
-command_or_copy = strdup(command);
+command_or_copy = _strdup(command);
 command_partial_or = strtok(command_or_copy, command_or);
 previous_exec = -1;
 

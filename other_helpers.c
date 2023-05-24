@@ -3,6 +3,7 @@
 /**
 * _isdigit - checks whether a given input is a digit
 * @term: a char int parameter
+* 11;rgb:0000/0000/0000
 * Return: 1 if c is a digit, 0 otherwise
 */
 

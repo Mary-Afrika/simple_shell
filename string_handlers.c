@@ -15,7 +15,7 @@ char *tokens_copy = NULL;
 int tokens_size = 0;
 char *tokenf = NULL;
 
-tokenf = strdup(str);
+tokenf = _strdup(str);
 tokens_copy = strtok(tokenf, delim);
 while (tokens_copy != NULL)
 {
@@ -33,7 +33,7 @@ if (tokens == NULL)
 token = strtok(str, delim);
 while (token != NULL)
 {
-	tokens[token_idx] = strdup(token);
+	tokens[token_idx] = _strdup(token);
 	if (tokens[token_idx] == NULL)
 	{
 		free_char_array(tokens);
