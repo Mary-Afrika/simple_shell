@@ -62,8 +62,7 @@ int handle_command(char *command)
 	char **args = NULL;
 	char *delim = " \n";
 	int custom_res = -1;
-	int i;
-
+	
 	if (_strlen(command) == 1)
 	{
 		return (-1);
@@ -71,10 +70,6 @@ int handle_command(char *command)
 	args = splitstring(command, delim);
 	if (args)
 	{
-		for (i = 0; args[i]; i++)
-		{
-			printf("%s\n", args[i]);
-		}
 		custom_res = handle_custom_commands(command, args);
 		if (custom_res == -1)
 		{

@@ -9,7 +9,6 @@
 */
 int handle_custom_commands(char *command, char **args)
 {
-    int i;
 if (_strcmp(command, "exit") == 0)
 {
 my_exit(command, args);
