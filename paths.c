@@ -75,7 +75,7 @@ if (!path_copy)
 {
 perror("Memory Allocation Failed");
 free_char_array(dirs);
-return NULL;
+return (NULL);
 perror("Memory Allocation Failed");
 	return (NULL);
 }
