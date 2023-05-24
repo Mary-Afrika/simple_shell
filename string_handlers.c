@@ -33,7 +33,7 @@ if (tokens == NULL)
 token = strtok(str, delim);
 while (token != NULL)
 {
-	tokens[token_idx] = _strdup(token);
+	tokens[token_idx] = token;
 	if (tokens[token_idx] == NULL)
 	{
 		free_char_array(tokens);

@@ -36,6 +36,7 @@ int main(int ac, char **av)
 			handle_command(command_split);
 			command_split = strtok(NULL, command_separator);
 		}
+		free(command);
 	}
 	free(command);
 	return (0);

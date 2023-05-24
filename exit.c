@@ -21,5 +21,6 @@ return;
 }
 status = str_result;
 }
+free(args);
 exit(status);
 }
