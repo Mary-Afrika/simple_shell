@@ -9,15 +9,14 @@
 int main(int ac, char **av)
 {
 	char *command = NULL;
-	/*char *command_split = NULL;*/
 	char *prompt = "$ ";
 	size_t promt_length;
 	size_t buff_size;
 	size_t getline_err;
-	/*const char *command_separator = ";";*/
+	int err_count = 1;
+	(void)err_count;
 
 	(void)ac;
-	(void)av;
 	command = NULL;
 	buff_size = 1024;
 	getline_err = -1;
@@ -26,14 +25,13 @@ int main(int ac, char **av)
 	{
 		while (1)
 		{
-
-			printf("%s", prompt);
+			write(1, prompt, _strlen(prompt));
 			promt_length = getline(&command, &buff_size, stdin);
 			if (promt_length == getline_err)
 			{
 				return (-1);
 			}
-			handle_command(command);
+			handle_command(command, av);
 		}
 	}
 	else
@@ -44,7 +42,7 @@ int main(int ac, char **av)
 			{
 				command[buff_size - 1] = '\0';
 			}
-			handle_command(command);
+			handle_command(command, av);
 		}
 	}
 	free(command);
@@ -54,15 +52,16 @@ int main(int ac, char **av)
 /**
  * handle_command - handles a command, a long string
  * @command: char array of the command
+ * @av: char array
  * Return: 1 if successful, else -1
  */
-int handle_command(char *command)
+int handle_command(char *command, char **av)
 {
 	char *path = NULL;
 	char **args = NULL;
 	char *delim = " \n";
 	int custom_res = -1;
-	
+
 	if (_strlen(command) == 1)
 	{
 		return (-1);
@@ -80,7 +79,7 @@ int handle_command(char *command)
 			}
 			else
 			{
-				perror("Command not found");
+				perror(av[0]);
 			}
 		}
 	}

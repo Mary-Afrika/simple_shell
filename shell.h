@@ -6,13 +6,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <string.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <string.h>
 
 extern char **environ;
 char **get_directories(void);
-int handle_command(char *command);
+int handle_command(char *command, char **av);
 char *get_path(char *path);
 char **splitstring(char *str, char *delim);
 void print_environment(void);
@@ -39,5 +39,7 @@ void print(char *str);
 int _putchar(char c);
 int execute(char **args, char *path);
 char *get_path(char *command);
+void print_err(char *str);
+int _putchar_err(char c);
 
 #endif

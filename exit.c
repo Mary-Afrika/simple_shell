@@ -2,9 +2,9 @@
 
 /**
 * my_exit - exit the program with a specified status
+* @command: string
 * @args: command arguments
 */
-
 void my_exit(char *command, char **args)
 {
 int status = 0;
