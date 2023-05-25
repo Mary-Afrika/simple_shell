@@ -18,7 +18,7 @@ int main(int ac, char **av)
 
 	(void)ac;
 	command = NULL;
-	buff_size = 1024;
+	buff_size = 0;
 	getline_err = -1;
 
 	if (isatty(STDIN_FILENO)) /* is terminal ?*/
@@ -38,10 +38,6 @@ int main(int ac, char **av)
 	{
 		while (getline(&command, &buff_size, stdin) != -1)
 		{
-			if (buff_size > 0 && command[buff_size - 1] == '\n')
-			{
-				command[buff_size - 1] = '\0';
-			}
 			handle_command(command, av);
 		}
 	}
