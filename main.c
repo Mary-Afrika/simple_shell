@@ -67,7 +67,7 @@ int handle_command(char *command, char **av)
 		return (-1);
 	}
 	args = splitstring(command, delim);
-	if (args)
+	if (args && args[0])
 	{
 		custom_res = handle_custom_commands(command, args);
 		if (custom_res == -1)
