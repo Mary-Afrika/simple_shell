@@ -2,12 +2,12 @@
 
 /**
 * my_exit - exit the program with a specified status
+* @command: string
 * @args: command arguments
 */
-
-void my_exit(char **args)
+void my_exit(char *command, char **args)
 {
-int status = 0;
+int status = 2;
 long int str_result;
 static int error_num = 1;
 
@@ -22,5 +22,6 @@ return;
 status = str_result;
 }
 free(args);
+free(command);
 exit(status);
 }

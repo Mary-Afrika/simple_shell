@@ -9,32 +9,40 @@
 int main(int ac, char **av)
 {
 	char *command = NULL;
-	char *command_split = NULL;
 	char *prompt = "$ ";
 	size_t promt_length;
 	size_t buff_size;
 	size_t getline_err;
-	const char *command_separator = ";";
+	int err_count = 1;
+	(void)err_count;
 
 	(void)ac;
-	(void)av;
 	command = NULL;
 	buff_size = 1024;
 	getline_err = -1;
 
-	while (1)
+	if (isatty(STDIN_FILENO)) /* is terminal ?*/
 	{
-		printf("%s", prompt);
-		promt_length = getline(&command, &buff_size, stdin);
-		if (promt_length == getline_err)
+		while (1)
 		{
-			return (-1);
+			write(1, prompt, _strlen(prompt));
+			promt_length = getline(&command, &buff_size, stdin);
+			if (promt_length == getline_err)
+			{
+				return (-1);
+			}
+			handle_command(command, av);
 		}
-		command_split = strtok(command, command_separator);
-		while (command_split != NULL)
+	}
+	else
+	{
+		while (getline(&command, &buff_size, stdin) != -1)
 		{
-			handle_command(command_split);
-			command_split = strtok(NULL, command_separator);
+			if (buff_size > 0 && command[buff_size - 1] == '\n')
+			{
+				command[buff_size - 1] = '\0';
+			}
+			handle_command(command, av);
 		}
 	}
 	free(command);
@@ -44,9 +52,10 @@ int main(int ac, char **av)
 /**
  * handle_command - handles a command, a long string
  * @command: char array of the command
+ * @av: char array
  * Return: 1 if successful, else -1
  */
-int handle_command(char *command)
+int handle_command(char *command, char **av)
 {
 	char *path = NULL;
 	char **args = NULL;
@@ -69,7 +78,9 @@ int handle_command(char *command)
 				execute(args, path);
 			}
 			else
-				perror("Command not found");
+			{
+				perror(av[0]);
+			}
 		}
 	}
 	free(args);
@@ -80,7 +91,7 @@ int handle_command(char *command)
  * @args: arrya
  * @path: path
  * Return: int
-*/
+ */
 int execute(char **args, char *path)
 {
 	pid_t pid;

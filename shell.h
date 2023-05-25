@@ -6,20 +6,20 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <string.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <string.h>
 
 extern char **environ;
 char **get_directories(void);
-int handle_command(char *command);
+int handle_command(char *command, char **av);
 char *get_path(char *path);
 char **splitstring(char *str, char *delim);
 void print_environment(void);
 char *_getenv(const char *name);
 int handle_custom_commands(char *command, char **args);
 char *_strtok(char *str, const char *delim);
-void my_exit(char **args);
+void my_exit(char *command, char **args);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 void change_directory(char **args);
@@ -38,5 +38,8 @@ void handle_and_or(char *command);
 void print(char *str);
 int _putchar(char c);
 int execute(char **args, char *path);
+char *get_path(char *command);
+void print_err(char *str);
+int _putchar_err(char c);
 
 #endif
