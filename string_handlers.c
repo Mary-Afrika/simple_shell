@@ -112,7 +112,7 @@ for (; string[i] != '\0'; i++)
 {
 if (!_isdigit(string[i]))
 {
-return (0);
+return (999999);
 }
 
 res = res * 10 + (string[i] - '0');

@@ -14,7 +14,7 @@ static int error_num = 1;
 if (args[1])
 {
 str_result = custom_atoi(args[1]);
-if (str_result == 0)
+if (str_result == 999999)
 {
 printf("sh: %d: exit: Illegal number: %s\n", error_num++, args[1]);
 return;
