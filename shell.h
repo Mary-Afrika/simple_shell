@@ -12,14 +12,14 @@
 
 extern char **environ;
 char **get_directories(void);
-int handle_command(char *command, char **av);
+int handle_command(char *command, char **av, int *status);
 char *get_path(char *path);
 char **splitstring(char *str, char *delim);
 void print_environment(void);
 char *_getenv(const char *name);
-int handle_custom_commands(char *command, char **args, char **av);
+int handle_custom_commands(char *command, char **args, char **av, int *status);
 char *_strtok(char *str, const char *delim);
-void my_exit(char *command, char **args, char **av);
+void my_exit(char *command, char **args, char **av, int *status);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 void change_directory(char **args);
@@ -37,7 +37,7 @@ void free_char_array(char **array);
 void handle_and_or(char *command);
 void print(char *str);
 int _putchar(char c);
-int execute(char **args, char *path);
+int execute(char **args, char *path, int *status);
 char *get_path(char *command);
 int _putchar_err(char c);
 void print_err(char *str);

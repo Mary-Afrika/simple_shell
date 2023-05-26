@@ -14,6 +14,7 @@ int main(int ac, char **av)
 	size_t buff_size;
 	size_t getline_err;
 	int err_count = 1;
+	int status = 0;
 	(void)err_count;
 
 	(void)ac;
@@ -31,16 +32,17 @@ int main(int ac, char **av)
 			{
 				return (-1);
 			}
-			handle_command(command, av);
+			handle_command(command, av, &status);
 		}
 	}
 	else
 	{
 		while (getline(&command, &buff_size, stdin) != -1)
 		{
-			handle_command(command, av);
+			handle_command(command, av, &status);
 		}
-		return (0);
+		printf("here --%d--\n", status);
+		exit(status);
 	}
 	free(command);
 	return (0);
@@ -50,9 +52,10 @@ int main(int ac, char **av)
  * handle_command - handles a command, a long string
  * @command: char array of the command
  * @av: char array
+ * @status: error status
  * Return: 1 if successful, else -1
  */
-int handle_command(char *command, char **av)
+int handle_command(char *command, char **av, int *status)
 {
 	char *path = NULL;
 	char **args = NULL;
@@ -66,13 +69,13 @@ int handle_command(char *command, char **av)
 	args = splitstring(command, delim);
 	if (args && args[0])
 	{
-		custom_res = handle_custom_commands(command, args, av);
+		custom_res = handle_custom_commands(command, args, av, status);
 		if (custom_res == -1)
 		{
 			path = get_path(args[0]);
 			if (path)
 			{
-				execute(args, path);
+				execute(args, path, status);
 			}
 			else
 			{
@@ -87,12 +90,13 @@ int handle_command(char *command, char **av)
  * execute - executes commands using execve
  * @args: arrya
  * @path: path
+ * @status: error status
  * Return: int
  */
-int execute(char **args, char *path)
+int execute(char **args, char *path, int *status)
 {
 	pid_t pid;
-	int status;
+	int res;
 
 	pid = fork();
 	if (pid == -1)
@@ -106,7 +110,6 @@ int execute(char **args, char *path)
 		if (execve(path, args, environ) == -1)
 		{
 			perror("An Error has occurred\n");
-			exit(0);
 			return (-1);
 		}
 		else
@@ -118,14 +121,16 @@ int execute(char **args, char *path)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+		waitpid(pid, &res, 0);
+		if (WIFEXITED(res) && WEXITSTATUS(res) == 0)
 		{
+			*status = WEXITSTATUS(res);
 			free(path);
 			return (1);
 		}
 		else
 		{
+			*status = WEXITSTATUS(res);
 			free(path);
 			return (-1);
 		}
