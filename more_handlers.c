@@ -9,21 +9,22 @@
 */
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-size_t i = 0;
-int ret;
+	size_t i;
 
-for (i = 0; s1[i] && s2[i] && i < n; i++)
-{
-if (s1[i] == s2[i])
-continue;
-else
-break;
+	for (i = 0; i < n; ++i)
+	{
+		if (s1[i] != s2[i])
+		{
+			return (s1[i] - s2[i]);
+		}
+
+		if (s1[i] == '\0' || s2[i] == '\0')
+		{
+			return (0);
+		}
+	}
+	return (0);
 }
-
-ret = s1[i] - s2[i];
-return (ret);
-}
-
 
 /**
 * _strdup - returns a pointer to a newly allocated space in memory

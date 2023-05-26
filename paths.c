@@ -12,20 +12,18 @@ char *get_path(char *command)
 	char *dir = NULL, *path_copy = NULL, *valid_path = NULL, *full_path = NULL;
 	struct stat st;
 
-	if (path == NULL || command == NULL)
+	if ((path == NULL && command == NULL) || command == NULL)
 	{
 		perror("Unable to access the PATH or command environment variable.");
 		return (NULL);
 	}
 	if (stat(command, &st) == 0) /*check if a path on its own*/
-	{
-		return (_strdup(command)); }
+		return (_strdup(command));
+	if (path == NULL)
+		path = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
 	path_copy = _strdup(path);
 	if (path_copy == NULL)
-	{
-		perror("strdup: ");
 		return (NULL);
-	}
 	dir = strtok(path_copy, ":");
 	while (dir != NULL)
 	{
