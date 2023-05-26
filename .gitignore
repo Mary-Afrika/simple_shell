@@ -3,4 +3,4 @@ hs
 test
 .bash
 checker
-test2
+test**

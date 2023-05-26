@@ -41,7 +41,6 @@ int main(int ac, char **av)
 		{
 			handle_command(command, av, &status);
 		}
-		printf("here --%d--\n", status);
 		exit(status);
 	}
 	free(command);
