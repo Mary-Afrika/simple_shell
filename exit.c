@@ -8,7 +8,7 @@
 */
 void my_exit(char *command, char **args, char **av)
 {
-int status = 2;
+int status = 0;
 long int str_result;
 static int error_num = 1;
 char err_ch;

@@ -40,6 +40,7 @@ int main(int ac, char **av)
 		{
 			handle_command(command, av);
 		}
+		return (0);
 	}
 	free(command);
 	return (0);
