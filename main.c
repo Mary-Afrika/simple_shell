@@ -65,7 +65,7 @@ int handle_command(char *command, char **av)
 	args = splitstring(command, delim);
 	if (args && args[0])
 	{
-		custom_res = handle_custom_commands(command, args);
+		custom_res = handle_custom_commands(command, args, av);
 		if (custom_res == -1)
 		{
 			path = get_path(args[0]);

@@ -17,9 +17,9 @@ char *get_path(char *path);
 char **splitstring(char *str, char *delim);
 void print_environment(void);
 char *_getenv(const char *name);
-int handle_custom_commands(char *command, char **args);
+int handle_custom_commands(char *command, char **args, char **av);
 char *_strtok(char *str, const char *delim);
-void my_exit(char *command, char **args);
+void my_exit(char *command, char **args, char **av);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 void change_directory(char **args);
@@ -39,7 +39,8 @@ void print(char *str);
 int _putchar(char c);
 int execute(char **args, char *path);
 char *get_path(char *command);
-void print_err(char *str);
 int _putchar_err(char c);
+void print_err(char *str);
+void put_err(char ch);
 
 #endif

@@ -5,13 +5,14 @@
 * beyond the built in commands
 * @command: the cammand arg , args[0]
 * @args: arguments passed
+* @av: args
 * Return: 1 if found else -1
 */
-int handle_custom_commands(char *command, char **args)
+int handle_custom_commands(char *command, char **args, char **av)
 {
 if (_strcmp(command, "exit") == 0)
 {
-my_exit(command, args);
+my_exit(command, args, av);
 }
 else if (_strcmp(command, "setenv") == 0)
 {
