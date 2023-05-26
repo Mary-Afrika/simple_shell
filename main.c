@@ -41,6 +41,7 @@ int main(int ac, char **av)
 		{
 			handle_command(command, av, &status);
 		}
+		free(command);
 		exit(status);
 	}
 	free(command);
