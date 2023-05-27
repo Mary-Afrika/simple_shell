@@ -1,6 +1,13 @@
+# exclude executable variations
 hsh
 hs
-test
-.bash
-checker
+
+# exclude test bash files
 test**
+*.bash
+
+# exlude checker bash file
+checker
+
+# exclude vscode setup file
+/.vscode
