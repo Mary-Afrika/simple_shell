@@ -10,4 +10,4 @@ test**
 checker
 
 # exclude vscode setup file
-/.vscode
+.vscode/*
